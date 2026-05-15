@@ -140,8 +140,9 @@
 			justify-content: center; /* বাটনকে মাঝখানে রাখবে */
 			align-items: center;
 			background: #050505;
+			margin-top: auto;
 			
-			padding-bottom: 40px;
+			padding-bottom: 110px;
 			position: relative; /* লাইফ বক্সকে কন্ট্রোল করার জন্য */
 			}
 
@@ -206,7 +207,7 @@
 
 			<div class="stats-container">
 				<div class="point-box">
-					<i class="fa-solid fa-coins"></i> <span id="user-points">450</span> $GRIT
+					<i class="fa-solid fa-coins"></i> <span id="user-points">4</span>
 				</div>
 				<button class="claim-btn">Claim Reward</button>
 			</div>
@@ -234,7 +235,7 @@
 						</div>
 					</div>
 				</div>
-				<p id="status" style="position: absolute; bottom: 30%;">Feeling lucky? Roll the dice!</p>
+				<p id="status" style="position: absolute; bottom: 1%;">Feeling lucky? Roll the dice!</p>
 			</div>
 
 			<div class="controls">
@@ -301,7 +302,7 @@
 			const status = document.getElementById('status');
 
 			btn.disabled = true;
-			status.innerText = "Dice are falling...";
+			status.innerText = "Shuffle...";
 
 			// Start Shuffling and Rolling
 			const shuffleInterval = setInterval(() => {
