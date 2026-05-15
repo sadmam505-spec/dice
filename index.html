@@ -32,7 +32,7 @@
 			flex-direction: column;
 			box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 			}
-			
+
 
 			.top-bar {
 			width: 100%;
@@ -78,6 +78,8 @@
 			align-items: center;
 			width: 100%;
 			perspective: 1200px;
+			position: relative;
+			padding-bottom: 50px; /* ডাইসের নিচের টেক্সট ও রোল বাটনের মাঝে সেফ গ্যাপ রাখবে */
 			}
 
 			.dice-wrapper {
@@ -135,13 +137,17 @@
 			/* --- শুধু কন্ট্রোল সেকশনের এই অংশটুকু পরিবর্তন করুন --- */
 			.controls {
 			width: 100%;
-			padding: 20px;
+			padding: 10px 20px; /* প্যাডিং কমিয়ে আনা হয়েছে */
 			display: flex;
-			justify-content: center; /* বাটনকে মাঝখানে রাখবে */
+			justify-content: center;
 			align-items: center;
 			background: #050505;
-			margin-top: auto;
-			
+			border-top: none;
+			padding-bottom: 140px; /* এই পিক্সেলটি কমিয়ে বাটনকে উপরে তোলা হয়েছে */
+			position: relative;
+			margin-top: auto; /* গেম এরিয়ার পর যতটুকু জায়গা থাকবে তার নিচে বাটনকে সুন্দরভাবে বসাবে */
+			}
+
 			padding-bottom: 110px;
 			position: relative; /* লাইফ বক্সকে কন্ট্রোল করার জন্য */
 			}
