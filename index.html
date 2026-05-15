@@ -143,7 +143,7 @@
 			align-items: center;
 			background: #050505;
 			border-top: none;
-			padding-bottom: 190px; /* এই পিক্সেলটি কমিয়ে বাটনকে উপরে তোলা হয়েছে */
+			padding-bottom: 170px; /* এই পিক্সেলটি কমিয়ে বাটনকে উপরে তোলা হয়েছে */
 			position: relative;
 			margin-top: auto; /* গেম এরিয়ার পর যতটুকু জায়গা থাকবে তার নিচে বাটনকে সুন্দরভাবে বসাবে */
 			}
@@ -201,27 +201,40 @@
 					320 x 50 Banner Ad
 				</div>
 			</div>
-			
-			<div class="top-bar">
-				<a href="index.html" class="back-btn">
-					<i class="fa-solid fa-arrow-left"></i>
-				</a>
-				<div style="color: #888; font-size: 0.9rem;">Dice Master</div>
-				<div style="width: 20px;"></div>
-				
-			</div>
+
+			<div class="game-rules" style="width: 100%; text-align: center; margin-top: 12px; margin-bottom: 12px; padding: 0 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px;">	
+    <p style="color: #aaa; font-size: 0.8rem; margin: 0; font-weight: 500; letter-spacing: 0.5px; line-height: 1.4;">
+		✨ Match<b> numbers</b> OR <b>roll evens</b> to win rewards!
+	</p>	
+    
+    <div style="background: rgba(46, 196, 182, 0.1); border: 1px dashed #2ec4b6; border-radius: 8px; padding: 6px 12px; margin-top: 4px; display: inline-block; align-self: center;">		
+        <p style="color: #2ec4b6; font-size: 0.85rem; margin: 0; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase;">
+            🔥 Roll <b>Double 6</b> for 2X Rewards! 🔥		
+        </p>	
+    </div>
+</div>
 
 			<div class="stats-container">
-				<div class="point-box">
-					<i class="fa-solid fa-coins"></i> <span id="user-points">4</span>
+
+				<a href="index.html" style="color: #f39c12; font-size: 1.2rem; text-decoration: none; display: flex; align-items: center; width: 40px;">
+					<i class="fa-solid fa-house"></i>
+				</a>
+
+				<div class="point-box" style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 1.1rem;">
+					<i class="fa-solid fa-coins"></i>
+					<span>0 $GRIT</span>
 				</div>
-				<button class="claim-btn">Claim Reward</button>
+
+				<button class="claim-btn" id="claimRewardBtn">
+					Claim Reward
+				</button>
+
 			</div>
 
 	
 
 			<div class="game-area">
-				<div id="drop-zone" style="position: absolute; top: 40%; transition: transform 1s;">
+				<div id="drop-zone" style="position: absolute; top: 55%; transition: transform 1s;">
 					<div class="dice-wrapper">
 						<div id="dice1" class="dice-container initial-pos">
 							<div class="face front"></div>
