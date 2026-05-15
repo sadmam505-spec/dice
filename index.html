@@ -1,255 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Grifity Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-    <style>
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #044434; color: white; display: flex; justify-content: center; }
-        .app-container { width: 100%; max-width: 450px; background: #044434; min-height: 100vh; position: relative; overflow-x: hidden; }
-        
-        /* Header and Exit Button */
-		.header { padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-		.exit-btn { background: #ff4d4d; color: white; border: none; padding: 10px 18px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: transform 0.1s; }
-		.exit-btn:active { transform: scale(0.9); }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>3D Lucky Roller - Premium</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+		<style>
+			* { box-sizing: border-box; }
+			body {
+			background-color: #000;
+			color: #fff;
+			font-family: 'Inter', sans-serif;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			overflow: hidden;
+			}
 
-		/* Balance Info */
-		.top-info { padding: 0 20px; display: flex; justify-content: space-between; align-items: stretch; gap: 10px; }
-		.balance-box { flex: 1; }
-		.balance-box h1 { font-size: 42px; margin: 5px 0; color: #4ade80; }
+			.phone-container {
+			width: 100%;
+			height: 100%;
+			max-width: 400px;
+			background-color: #000;
+			border: 2px solid #333;
+			border-radius: 30px;
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+			}
+			
 
-		/* Bonus Card */
-		.bonus-card { background: linear-gradient(135deg, #ff914d, #ffde59); color: #222; padding: 15px; border-radius: 20px; width: 45%; text-align: center; }
-		.timer { background: #000; color: #ffde59; padding: 4px 8px; border-radius: 6px; margin-top: 8px; font-weight: bold; display: inline-block; font-size: 13px; }
+			.top-bar {
+			width: 100%;
+			padding: 15px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			}
+			.back-btn { color: #f39c12; text-decoration: none; font-size: 1.2rem; cursor: pointer; }
 
-		/* Progress Bar Section */
-		.progress-section { padding: 15px 20px; }
-		.progress-info { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; opacity: 0.8; }
-		.progress-bar-bg { background: rgba(255,255,255,0.1); height: 8px; border-radius: 10px; width: 100%; overflow: hidden; }
-		.progress-fill { background: #4ade80; height: 100%; width: 45%; border-radius: 10px; }
+			.stats-container {
+			width: 90%;
+			align-self: center;
+			background: #111;
+			border: 1px solid #333;
+			border-radius: 15px;
+			padding: 15px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-top: 10px;
+			}
+			.point-box { color: #f39c12; font-weight: bold; }
 
-		.progress-text {
-		text-align: center;
-		font-size: 12px;
-		color: #ffffff;
-		margin-top: 3px;    /* এই লাইনটি ৮ থেকে কমিয়ে ২ করে দিন */
-		margin-bottom: 0px; /* নিচের গ্যাপ বন্ধ করতে এটা যোগ করতে পারেন */
-		font-weight: 500;
-		opacity: 0.9;
-		}
+			.claim-btn {
+			background: #27ae60;
+			color: white;
+			border: none;
+			padding: 8px 15px;
+			border-radius: 20px;
+			font-size: 0.8rem;
+			font-weight: bold;
+			cursor: pointer;
+			transition: transform 0.1s;
+			}
+			.claim-btn:active { transform: scale(0.9); }
 
-		/* White Content Area */
-		.main-content { background: white; color: black; border-top-left-radius: 40px; border-top-right-radius: 40px; margin-top: 5px; padding: 25px 20px; padding-bottom: 90px; }
+			.game-area {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			perspective: 1200px;
+			}
 
-		/* Task Grid with Click Effect */
-		.task-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center; margin-bottom: 25px; }
-		.task-item { cursor: pointer; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
-		.task-item:active { transform: scale(0.85); }
-		.task-item i { background: #f0f4f2; padding: 16px; border-radius: 50%; font-size: 22px; margin-bottom: 6px; color: #044434; display: inline-block; }
-		.task-item p { font-size: 11px; margin: 0; font-weight: 600; }
+			.dice-wrapper {
+			display: flex;
+			gap: 50px;
+			height: 100px;
+			align-items: center;
+			}
 
-		/* Refer and Earn Card Premium Styling */
-		.refer-card {
-		background: linear-gradient(145deg, #1a1a1a, #252525);
-		border: 1px solid #2ecc71; /* আপনার থিমের গ্রিন কালার */
-		border-radius: 20px;
-		padding: 20px;
-		margin: 15px;
-		color: white;
-		font-family: 'Poppins', sans-serif;
-		box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-		}
+			.dice-container {
+			width: 60px;
+			height: 60px;
+			position: relative;
+			transform-style: preserve-3d;
+			transition: transform 1.5s cubic-bezier(0.1, 0.5, 0.3, 1);
+			}
 
-		.refer-header h2 {
-		color: #2ecc71;
-		margin: 0;
-		font-size: 22px;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		}
+			/* Initial hidden state to simulate falling from top */
+			.initial-pos { transform: translateY(-500px) rotateX(45deg) rotateY(45deg); }
 
-		.refer-header p {
-		color: #ccc;
-		font-size: 13px;
-		margin-top: 5px;
-		line-height: 1.4;
-		font-weight: 300;
-		}
+			.face {
+			position: absolute;
+			width: 60px;
+			height: 60px;
+			background: #fff;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(3, 1fr);
+			padding: 6px;
+			box-shadow: inset 0 0 10px rgba(0,0,0,0.15);
+			backface-visibility: hidden;
+			}
 
-		.refer-stats {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 15px;
-		margin: 20px 0;
-		}
+			.dot { width: 10px; height: 10px; background: #000; border-radius: 50%; justify-self: center; align-self: center; }
 
-		.stat-box {
-		background: rgba(46, 204, 113, 0.05);
-		border: 1px dashed rgba(46, 204, 113, 0.4);
-		padding: 12px;
-		border-radius: 15px;
-		text-align: center;
-		transition: 0.3s;
-		}
+			.front  { transform: rotateY(0deg) translateZ(30px); }
+			.back   { transform: rotateY(180deg) translateZ(30px); }
+			.right  { transform: rotateY(90deg) translateZ(30px); }
+			.left   { transform: rotateY(-90deg) translateZ(30px); }
+			.top    { transform: rotateX(90deg) translateZ(30px); }
+			.bottom { transform: rotateX(-90deg) translateZ(30px); }
 
-		.stat-box:hover {
-		background: rgba(46, 204, 113, 0.1);
-		border-color: #2ecc71;
-		}
+			/* Fast Spin Animation */
+			.rolling-fast {
+			animation: fastSpin 0.3s infinite linear;
+			}
 
-		.stat-value {
-		display: block;
-		font-size: 22px;
-		font-weight: bold;
-		color: #fff;
-		}
+			@keyframes fastSpin {
+			0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+			100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+			}
 
-		.stat-label {
-		font-size: 10px;
-		color: #2ecc71;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		}
+			/* --- শুধু কন্ট্রোল সেকশনের এই অংশটুকু পরিবর্তন করুন --- */
+			.controls {
+			width: 100%;
+			padding: 20px;
+			display: flex;
+			justify-content: center; /* বাটনকে মাঝখানে রাখবে */
+			align-items: center;
+			background: #050505;
+			
+			padding-bottom: 40px;
+			position: relative; /* লাইফ বক্সকে কন্ট্রোল করার জন্য */
+			}
 
-		.refer-link-section label {
-		font-size: 12px;
-		color: #888;
-		margin-left: 5px;
-		display: block;
-		margin-bottom: 5px;
-		}
+			.roll-btn {
+			background: linear-gradient(45deg, #f39c12, #e67e22);
+			color: white;
+			border: none;
+			padding: 15px 40px;
+			font-size: 1.1rem;
+			border-radius: 30px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: transform 0.1s;
+			min-width: 160px;
+			}
 
-		.link-wrapper {
-		display: flex;
-		background: #0f0f0f;
-		border-radius: 12px;
-		padding: 6px;
-		border: 1px solid #333;
-		}
+			.life-box {
+			position: absolute; /* লাইফ বক্সকে বাটনের ওপর নির্ভর না করে আলাদা করে ফেললাম */
+			right: 60px; /* একদম ডান পাশে থাকবে */
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 1.2rem;
+			font-weight: bold;
+			}
 
-		#refer-link {
-		background: transparent;
-		border: none;
-		color: #2ecc71;
-		padding: 10px;
-		width: 100%;
-		font-size: 13px;
-		outline: none;
-		font-weight: 500;
-		}
+			.roll-btn {
+			background: linear-gradient(45deg, #f39c12, #e67e22);
+			color: white; border: none; padding: 15px 35px;
+			font-size: 1.1rem; border-radius: 30px; font-weight: bold;
+			cursor: pointer; transition: transform 0.1s;
+			}
+			.roll-btn:active { transform: scale(0.9); }
+			.roll-btn:disabled { background: #333; cursor: not-allowed; }
 
-		.copy-btn {
-		background: #2ecc71;
-		border: none;
-		color: #000;
-		padding: 0 20px;
-		border-radius: 10px;
-		font-weight: 700;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		text-transform: uppercase;
-		font-size: 12px;
-		}
+			.life-box { display: flex; align-items: center; gap: 5px; font-size: 1.2rem; font-weight: bold; }
+			.fa-heart { color: #e74c3c; }
 
-		.copy-btn:hover {
-		background: #27ae60;
-		box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
-		}
+			#status { color: #555; font-size: 0.9rem; margin-top: 20px; font-weight: 500; }
+		</style>
+	</head>
+	<body>
 
-		.copy-btn:active {
-		transform: scale(0.92);
-		}
+		<div class="phone-container">
 
+			<div id="top-ad-placement" style="width: 100%; display: flex; flex-direction: column; align-items: center; background: #000; padding-top: 5px; border-bottom: 1px solid #111; margin-bottom: 15px;">
+				<span style="color: #333; font-size: 8px; margin-bottom: 2px; letter-spacing: 1px; font-weight: bold;">ADVERTISEMENT</span>
 
-	</style>
-</head>
-<body>
-     <div class="app-container">
-        <div class="header">
-            <div>
-                <p style="margin:0; opacity: 0.7; font-size: 13px;">Good morning!</p>
-                <h3 style="margin:0; font-size: 20px;">Muhtasin Sadmam</h3>
-            </div>
-            <button class="exit-btn" onclick="closeApp()">Exit</button>
-        </div>
-
-        <div class="top-info">
-            <div class="balance-box">
-                <p style="margin:0; opacity: 0.8; font-size: 14px;">Total Balance</p>
-                <h1>450 <small style="font-size: 16px;">Pts</small></h1>
-      
-            </div>
-            <div class="bonus-card">
-                <strong style="font-size: 17px;">10,000 PTS BONUS</strong>
-                <p style="margin:5px 0; font-size: 11px; line-height: 1.2;">Earn 25,000 pts within 15 days and get a 10,000 pts bonus!</p>
-                <div class="timer">14:23:59:59</div>
-            </div>
-        </div>
-
-		<div class="progress-section">
-			<div class="progress-bar-bg">
-				<div class="progress-fill"></div>
+				<div style="width: 320px; height: 50px; background: #0a0a0a; border: 1px solid #222; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 11px;">
+					320 x 50 Banner Ad
+				</div>
 			</div>
-			<p style="margin: 0; padding: 0; text-align: center; font-size: 12px; color: #a0b3af;">0 / 25,000</p>
+			
+			<div class="top-bar">
+				<a href="index.html" class="back-btn">
+					<i class="fa-solid fa-arrow-left"></i>
+				</a>
+				<div style="color: #888; font-size: 0.9rem;">Dice Master</div>
+				<div style="width: 20px;"></div>
+				
+			</div>
+
+			<div class="stats-container">
+				<div class="point-box">
+					<i class="fa-solid fa-coins"></i> <span id="user-points">450</span> $GRIT
+				</div>
+				<button class="claim-btn">Claim Reward</button>
+			</div>
+
+	
+
+			<div class="game-area">
+				<div id="drop-zone" style="position: absolute; top: 15%; transition: transform 1s;">
+					<div class="dice-wrapper">
+						<div id="dice1" class="dice-container initial-pos">
+							<div class="face front"></div>
+							<div class="face back"></div>
+							<div class="face right"></div>
+							<div class="face left"></div>
+							<div class="face top"></div>
+							<div class="face bottom"></div>
+						</div>
+						<div id="dice2" class="dice-container initial-pos">
+							<div class="face front"></div>
+							<div class="face back"></div>
+							<div class="face right"></div>
+							<div class="face left"></div>
+							<div class="face top"></div>
+							<div class="face bottom"></div>
+						</div>
+					</div>
+				</div>
+				<p id="status" style="position: absolute; bottom: 5%;">Feeling lucky? Roll the dice!</p>
+			</div>
+
+			<div class="controls">
+				<button class="roll-btn" onclick="startRoll()">ROLL DICE</button>
+				<div class="life-box">
+					<i class="fa-solid fa-heart"></i>
+					<span id="life-count">5</span>
+				</div>
+			</div>
 		</div>
 
-        <div class="main-content">
-            <div class="task-grid">
-				<div class="task-item"><i class="fa-solid fa-fire"></i><p>Quick Tasks</p></div>
-                <div class="task-item"><i class="fa-solid fa-dice"></i><p>Dice</p></div>
-				<div class="task-item"><i class="fa-solid fa-dharmachakra fa-spin-hover"></i><p>Lucky Spin</p></div>
-				<div class="task-item"><i class="fa-solid fa-spell-check"></i><p>Word Craft</p></div>
-				<div class="task-item">
-					<i class="fa-solid fa-bars-staggered"></i>
-					<p>Grit Tower</p>
-				</div>
-                <div class="task-item"><i class="fa-solid fa-users"></i><p>Referral</p></div>
-                <div class="task-item"><i class="fa-solid fa-wallet"></i><p>Redeem</p></div>
-				<div class="task-item"><i class="fa-solid fa-headset"></i><p>Support</p></div>
-                
-            </div>
+		<script>
+			function getDotsHTML(num) {
+			const positions = {
+			1: [5],
+			2: [1, 9],
+			3: [1, 5, 9],
+			4: [1, 3, 7, 9],
+			5: [1, 3, 5, 7, 9],
+			6: [1, 3, 4, 6, 7, 9]
+			};
+			let html = '';
+			for (let i = 1; i <= 9; i++) {
+			if (positions[num].includes(i)) html += `<div class="dot" style="grid-area: ${Math.ceil(i/3)}/${(i-1)%3+1}"></div>`;
+			}
+			return html;
+			}
 
-			<div class="refer-card">
-				<div class="refer-header">
-					<h2>10% Lifetime</h2>
-					<p>Get 10% Reward every time your friend completes a task</p>
-				</div>
+			function shuffleDiceFaces(diceId) {
+			const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+			const dice = document.getElementById(diceId);
+			faces.forEach(faceClass => {
+			const randomNum = Math.floor(Math.random() * 6) + 1;
+			dice.querySelector('.' + faceClass).innerHTML = getDotsHTML(randomNum);
+			});
+			}
 
-				<div class="refer-stats">
-					<div class="stat-box">
-						<span class="stat-value" id="total-refer">0</span>
-						<span class="stat-label">Total Refer</span>
-					</div>
-					<div class="stat-box">
-						<span class="stat-value" id="refer-income">0</span>
-						<span class="stat-label">Total Reward</span>
-					</div>
-				</div>
+			function getWeightedResult() {
+			const chance = Math.random() * 100;
 
-				<div class="refer-link-section">
-					<label>Your Referral Link</label>
-					<div class="link-wrapper">
-						<input type="text" id="refer-link" value="t.me/your_bot?start=USER_ID" readonly="">
-						</input>
-						<button type="button" onclick="copyReferLink()" class="copy-btn">Copy</button>
-					</div> 
-				</div>
-			</div>	
-        </div>
-    </div>
+			// 5% chance for 6+6
+			if (chance <= 5) return [6, 6];
 
-    <script>
-		
-		
-        function closeApp() {
-            // টেলিগ্রাম মিনি অ্যাপ বন্ধ করার জন্য
-            if (window.Telegram && window.Telegram.WebApp) {
-                window.Telegram.WebApp.close();
-            } else {
-                alert("App will close in Telegram Bot");
-            }
-        }
-    </script>
-</body>
+			// 25% chance for same numbers (but not 6+6)
+			if (chance <= 30) {
+			const num = Math.floor(Math.random() * 5) + 1;
+			return [num, num];
+			}
+
+			// 25% chance for both even numbers
+			if (chance <= 55) {
+			const evens = [2, 4, 6];
+			return [evens[Math.floor(Math.random()*3)], evens[Math.floor(Math.random()*3)]];
+			}
+
+			// Random numbers for the rest
+			return [Math.floor(Math.random()*6)+1, Math.floor(Math.random()*6)+1];
+			}
+
+			function startRoll() {
+			const d1 = document.getElementById('dice1');
+			const d2 = document.getElementById('dice2');
+			const btn = document.querySelector('.roll-btn');
+			const status = document.getElementById('status');
+
+			btn.disabled = true;
+			status.innerText = "Dice are falling...";
+
+			// Start Shuffling and Rolling
+			const shuffleInterval = setInterval(() => {
+			shuffleDiceFaces('dice1');
+			shuffleDiceFaces('dice2');
+			}, 100);
+
+			// Animation: Falling from top and spinning fast
+			d1.style.transition = "none";
+			d2.style.transition = "none";
+			d1.className = "dice-container rolling-fast";
+			d2.className = "dice-container rolling-fast";
+
+			setTimeout(() => {
+			clearInterval(shuffleInterval);
+			const [res1, res2] = getWeightedResult();
+
+			// Set the specific result to the 'front' face before stopping
+			d1.querySelector('.front').innerHTML = getDotsHTML(res1);
+			d2.querySelector('.front').innerHTML = getDotsHTML(res2);
+
+			// Stop at front face
+			d1.className = "dice-container";
+			d2.className = "dice-container";
+			d1.style.transition = "transform 1s cubic-bezier(0.17, 0.67, 0.83, 0.67)";
+			d2.style.transition = "transform 1s cubic-bezier(0.17, 0.67, 0.83, 0.67)";
+
+			// Final Landing Position (Front Face)
+			d1.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+			d2.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+
+			status.innerText = `Landed: ${res1} & ${res2}!`;
+				btn.disabled = false;
+				}, 3500);
+				}
+
+			
+			window.onload = () => {
+			// ১. ব্যালেন্স ০ সেট করা
+			const pointElement = document.getElementById('user-points');
+			if(pointElement) pointElement.innerText = "0";
+
+			// ২. ডাইসগুলোর রেফারেন্স নেওয়া
+			const d1 = document.getElementById('dice1');
+			const d2 = document.getElementById('dice2');
+
+			if(d1 && d2) {
+			// ৩. ডাইস ১ এবং ২ এর সামনে ৬ সেট করা
+			d1.querySelector('.front').innerHTML = getDotsHTML(6);
+			d2.querySelector('.front').innerHTML = getDotsHTML(6);
+
+			// ৪. ডাইসগুলোকে তাদের জায়গায় স্থির করে দেওয়া (যাতে শুরুতে ৬-৬ দেখা যায়)
+			d1.className = "dice-container";
+			d2.className = "dice-container";
+			d1.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+			d2.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+
+			// ৫. বাকি পাশগুলোতে রেন্ডম ডট দিয়ে রাখা (ঘোরার সময়ের জন্য)
+			shuffleDiceFaces('dice1');
+			shuffleDiceFaces('dice2');
+
+			// আবার ফ্রন্ট সাইড ৬ নিশ্চিত করা
+			d1.querySelector('.front').innerHTML = getDotsHTML(6);
+			d2.querySelector('.front').innerHTML = getDotsHTML(6);
+			}
+			};
+
+			</script>
+	</body>
 </html>
