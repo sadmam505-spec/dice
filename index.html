@@ -28,20 +28,19 @@
 			background-color: #000;
 			border: 2px solid #333;
 			border-radius: 30px;
-			overflow-y: auto; /* কন্টেন্ট বেশি হলে যেন স্ক্রল করা যায় */
+			overflow-y: auto;
 			display: flex;
 			flex-direction: column;
 			box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-			padding: 15px;
+			padding: 24px 18px; /* একটু বেশি ব্রিদিং স্পেস দেওয়া হয়েছে */
 			}
 
-			/* ফোন কন্টেইনারের স্ক্রলবার হাইড রাখার জন্য */
 			.phone-container::-webkit-scrollbar {
 			width: 0px;
 			}
 
 			/* ==========================================================================
-			1. TOP SECTION (Balance & Claim Bar) - এখন সবার উপরে
+			1. TOP SECTION (Balance & Claim Bar)
 			========================================================================== */
 			.stats-container {
 			width: 100%;
@@ -52,7 +51,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			margin-bottom: 15px;
+			margin-bottom: 25px; /* নিচের রুলস থেকে গ্যাপ বাড়ানো হয়েছে */
 			}
 
 			.point-box { color: #f39c12; font-weight: bold; }
@@ -76,15 +75,15 @@
 			.game-rules {
 			width: 100%;
 			text-align: center;
-			margin-bottom: 15px;
+			margin-bottom: 30px; /* [FIX] গেম সেকশনকে নিচে নামানোর জন্য মার্জিন বাড়ানো হলো */
 			padding: 0 10px;
 			display: flex;
 			flex-direction: column;
-			gap: 8px;
+			gap: 10px;
 			}
 
 			/* ==========================================================================
-			3. GAME PLAY AREA (3D Dice Stage)
+			3. GAME PLAY AREA (3D Dice Stage) - এখন নিচে নেমে পারফেক্ট পজিশনে থাকবে
 			========================================================================== */
 			.game-area {
 			display: flex;
@@ -93,11 +92,10 @@
 			align-items: center;
 			width: 100%;
 			perspective: 1200px;
-			padding: 30px 0;
+			padding: 40px 0;
 			background: rgba(255, 255, 255, 0.02);
-			border-radius: 20px;
+			border-radius: 24px;
 			border: 1px solid rgba(255, 255, 255, 0.03);
-			margin-bottom: 20px;
 			}
 
 			.dice-wrapper {
@@ -153,18 +151,20 @@
 			#status { color: #888; font-size: 0.9rem; margin-top: 25px; font-weight: 500; }
 
 			/* ==========================================================================
-			4. CONTROLS SECTION (Flexible Layout) - গেম এরিয়ার নিচে মাউন্টেড
+			4. CONTROLS SECTION (গেম সেকশনের ঠিক নিচে মাউন্টেড)
 			========================================================================== */
 			.controls {
 			width: 100%;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 12px;
+			gap: 16px;
 			background: transparent;
-			/* গেম এরিয়া থেকে বাটনকে নিচে নামাতে বা পজিশন চেঞ্জ করতে নিচের margin-top টি টিউন করতে পারবেন */
-			margin-top: auto;
-			padding-bottom: 10px;
+
+			/* [⚓ IMPORTANT] বাটন গেম সেকশন থেকে কতটুকু নিচে নামবে তা এখান থেকে কন্ট্রোল করবেন */
+			margin-top: 35px;
+
+			padding-bottom: 15px;
 			}
 
 			.roll-action-row {
@@ -179,7 +179,7 @@
 			background: linear-gradient(45deg, #f39c12, #e67e22);
 			color: white;
 			border: none;
-			padding: 14px 40px;
+			padding: 15px 40px;
 			font-size: 1.1rem;
 			border-radius: 30px;
 			font-weight: bold;
@@ -193,7 +193,7 @@
 
 			.life-box {
 			position: absolute;
-			right: 10px;
+			right: 5px;
 			display: flex;
 			align-items: center;
 			gap: 6px;
@@ -206,10 +206,10 @@
 			}
 			.fa-heart { color: #e74c3c; }
 
-			/* [NEW] WATCH ADS FOR FREE LIVES BUTTON STYLE */
+			/* WATCH ADS FOR FREE LIVES BUTTON STYLE */
 			.ad-reward-trigger-btn {
 			width: 85%;
-			padding: 10px 14px;
+			padding: 11px 14px;
 			background: linear-gradient(135deg, #ff9f43 0%, #ff6b6b 100%);
 			color: #ffffff;
 			border: none;
@@ -227,7 +227,6 @@
 			transition: all 0.25s ease;
 			}
 
-			/* জাভাস্ক্রিপ্ট দিয়ে এনাবল করার আগ পর্যন্ত ডিফল্ট ডিসাবলড লুক */
 			.ad-reward-trigger-btn:disabled {
 			opacity: 0.25;
 			background: linear-gradient(135deg, #57606f 0%, #2f3542 100%);
@@ -248,10 +247,10 @@
 				</a>
 				<div class="point-box" style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 1.1rem;">
 					<i class="fa-solid fa-coins"></i>
-					<span id="user-points-display">0 </span>
+					<span id="user-points-display">0 $GRIT</span>
 				</div>
 				<button class="claim-btn" id="claimRewardBtn">
-					Claim
+					Claim Reward
 				</button>
 			</div>
 
