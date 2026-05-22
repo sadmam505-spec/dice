@@ -242,15 +242,15 @@
 		<div class="phone-container">
 
 			<div class="stats-container">
-				<a href="index.html" style="color: #f39c12; font-size: 1.2rem; text-decoration: none; display: flex; align-items: center; width: 40px;">
+				<a href="https://dashboard.gritorax.com" id="dashboard-link" style="color: #f39c12; font-size: 1.2rem; text-decoration: none; display: flex; align-items: center; width: 40px;">
 					<i class="fa-solid fa-house"></i>
 				</a>
 				<div class="point-box" style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 6px; font-size: 1.1rem;">
 					<i class="fa-solid fa-coins"></i>
-					<span id="user-points-display">0 $GRIT</span>
+					<span id="user-points-display">0 </span>
 				</div>
 				<button class="claim-btn" id="claimRewardBtn">
-					Claim Reward
+					Claim
 				</button>
 			</div>
 
@@ -393,21 +393,34 @@
 			const d2 = document.getElementById('dice2');
 
 			if(d1 && d2) {
-			d1.querySelector('.front').innerHTML = getDotsHTML(6);
-			d2.querySelector('.front').innerHTML = getDotsHTML(6);
+				d1.querySelector('.front').innerHTML = getDotsHTML(6);
+				d2.querySelector('.front').innerHTML = getDotsHTML(6);
 
-			d1.className = "dice-container";
-			d2.className = "dice-container";
-			d1.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
-			d2.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+				d1.className = "dice-container";
+				d2.className = "dice-container";
+				d1.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
+				d2.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
 
-			shuffleDiceFaces('dice1');
-			shuffleDiceFaces('dice2');
+				shuffleDiceFaces('dice1');
+				shuffleDiceFaces('dice2');
 
-			d1.querySelector('.front').innerHTML = getDotsHTML(6);
-			d2.querySelector('.front').innerHTML = getDotsHTML(6);
-			}
-			};
+				d1.querySelector('.front').innerHTML = getDotsHTML(6);
+				d2.querySelector('.front').innerHTML = getDotsHTML(6);
+				}
+				};
+
+				
+					// ১. ফোনের ফিজিক্যাল ব্যাক বাটন হ্যান্ডেল করা
+					history.pushState(null, null, window.location.href);
+					window.addEventListener('popstate', function(event) {
+					window.location.href = "https://dashboard.gritorax.com";
+					});
+
+					// ২. বাটনে ক্লিক করলে যেন সরাসরি ড্যাশবোর্ডে যায়
+					document.getElementById('dashboard-link').addEventListener('click', function(e) {
+					window.location.href = "https://dashboard.gritorax.com";
+					});
+				
 		</script>
 	</body>
 </html>
